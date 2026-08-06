@@ -73,10 +73,28 @@
         <article class="hover-card bg-card border border-border rounded-card shadow-card overflow-hidden flex flex-col justify-between">
 
             <div>
-                <!-- Thumbnail Placeholder -->
-                <div class="h-44 bg-surface border-b border-border flex items-center justify-center text-text-disabled relative">
-                    <i class="bi bi-globe2 text-4xl opacity-50"></i>
-                    <span class="absolute top-3 right-3 bg-bg/80 backdrop-blur border border-border text-text-secondary text-xs px-2.5 py-1 rounded-full flex items-center gap-1">
+                <!-- ================= THUMBNAIL (AUTO-SCREENSHOT FROM LINK) ================= -->
+                <div class="h-48 bg-surface border-b border-border overflow-hidden relative group">
+                    @if(!empty($project->image))
+                        <!-- Jika di-upload manual di DB -->
+                        <img src="{{ asset('storage/' . $project->image) }}"
+                             alt="{{ $project->title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    @elseif(!empty($project->link))
+                        <!-- Auto Screenshot Live dari Link Website (Thum.io) -->
+                        <img src="https://image.thum.io/get/width/600/crop/800/noanimate/{{ $project->link }}"
+                             alt="{{ $project->title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             loading="lazy">
+                    @else
+                        <!-- Fallback Placeholder jika tidak ada Link & Gambar -->
+                        <div class="w-full h-full flex items-center justify-center text-text-disabled">
+                            <i class="bi bi-globe2 text-4xl opacity-50"></i>
+                        </div>
+                    @endif
+
+                    <!-- Badge Featured -->
+                    <span class="absolute top-3 right-3 bg-bg/80 backdrop-blur border border-border text-text-secondary text-xs px-2.5 py-1 rounded-full flex items-center gap-1 z-10">
                         <i class="bi bi-lightning-fill text-status-warning"></i> Featured
                     </span>
                 </div>
@@ -116,7 +134,7 @@
                             <i class="bi bi-eye-fill text-primary"></i> {{ $project->views }} Views
                         </span>
                         <span class="flex items-center gap-1.5">
-                            <i class="bi bi-calendar-event"></i> {{ $project->created_at->format('Y') }}
+                            <i class="bi bi-calendar-event"></i> {{ $project->created_at ? $project->created_at->format('Y') : '2026' }}
                         </span>
                     </div>
                 </div>
