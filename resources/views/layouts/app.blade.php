@@ -175,7 +175,7 @@
 
     <!-- ================= FOOTER ================= -->
     <footer class="border-t border-border py-6 text-center text-xs text-text-disabled">
-        <p>&copy; {{ date('Y') }} MyPortfolio. Built with Laravel & Tailwind CSS.</p>
+        <p>&copy; {{ date('Y') }} MyPortfolio. VinRumere.</p>
     </footer>
 
 </body>
