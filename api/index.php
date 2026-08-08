@@ -1,6 +1,6 @@
 <?php
 
-// 1. Buat folder temporary yang wajib ada di serverless Vercel
+// 1. Buat direktori temporer di /tmp
 $dirs = [
     '/tmp/storage/run',
     '/tmp/storage/framework/views',
@@ -18,15 +18,16 @@ foreach ($dirs as $dir) {
     }
 }
 
-// 2. Override path Laravel ke folder /tmp sebelum mengarahkan ke application
+// 2. Set environment variables untuk path cache & storage
+putenv('APP_STORAGE_PATH=/tmp/storage');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
 putenv('APP_CONFIG_CACHE=/tmp/bootstrap/cache/config.php');
 putenv('APP_ROUTES_CACHE=/tmp/bootstrap/cache/routes.php');
 putenv('APP_EVENTS_CACHE=/tmp/bootstrap/cache/events.php');
+putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 
 $_ENV['APP_STORAGE_PATH'] = '/tmp/storage';
-$_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 
-// 3. Jalankan aplikasi Laravel dari public/index.php
+// 3. Bind storage path ke aplikasi Laravel
 require __DIR__ . '/../public/index.php';
