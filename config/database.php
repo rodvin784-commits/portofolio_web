@@ -43,14 +43,14 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-   'mysql' => [
+  'mysql' => [
     'driver' => 'mysql',
     'url' => env('DATABASE_URL'),
-    'host' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-    'port' => '4000',
-    'database' => 'db_portofolio',
-    'username' => '4Z4z7FluvWDnMBV.root',
-    'password' => 'Qi1DVfAiVhTXCJVK',
+    'host' => env('DB_HOST', 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'),
+    'port' => env('DB_PORT', '4000'),
+    'database' => env('DB_DATABASE', 'db_portofolio'),
+    'username' => env('DB_USERNAME', '4Z4z7FluvWDnMBV.root'),
+    'password' => env('DB_PASSWORD', 'Qi1DVfAiVhTXCJVK'),
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     'prefix' => '',
@@ -58,7 +58,7 @@ return [
     'strict' => true,
     'engine' => null,
     'options' => extension_loaded('pdo_mysql') ? [
-        PDO::MYSQL_ATTR_SSL_CA => NULL,
+        PDO::MYSQL_ATTR_SSL_CA => base_path('cacert.pem'),
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
     ] : [],
 ],
