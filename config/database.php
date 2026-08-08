@@ -43,7 +43,7 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-    'mysql' => [
+   'mysql' => [
     'driver' => 'mysql',
     'url' => env('DATABASE_URL'),
     'host' => env('DB_HOST', '127.0.0.1'),
@@ -57,12 +57,11 @@ return [
     'prefix_indexes' => true,
     'strict' => true,
     'engine' => null,
-    'options' => extension_loaded('pdo_mysql') ? array_filter([
-        PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA', '/etc/ssl/certs/ca-certificates.crt'),
+    'options' => extension_loaded('pdo_mysql') ? [
+        PDO::MYSQL_ATTR_SSL_CA => NULL,
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-    ]) : [],
+    ] : [],
 ],
-
 
         'pgsql' => [
             'driver' => 'pgsql',
